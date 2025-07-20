@@ -1,8 +1,0 @@
-[
-    {
-        "action": "Release Gating",
-        "apiVersion": 52,
-        "classname": "EDADemoReleaseGate",
-        "name": "EDADemoReleaseGate"
-    }
-]

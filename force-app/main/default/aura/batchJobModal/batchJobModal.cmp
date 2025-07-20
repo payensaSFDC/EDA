@@ -1,4 +1,0 @@
-<aura:component>
-    <aura:attribute name="modalAction" type="String" />
-    <c:batchJobModalBody modalAction="{!v.modalAction}"></c:batchJobModalBody>
-</aura:component>

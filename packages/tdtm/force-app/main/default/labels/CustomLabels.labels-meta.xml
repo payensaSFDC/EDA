@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>InvalidFilter</fullName>
+        <categories>TDTM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for TDTM filtering functionality</shortDescription>
+        <value>The field entered as the Filter Field isn&apos;t valid. Filter Fields can be any standard or custom field on the object this trigger is for, as well as fields on related records. Make sure you use the field&apos;s API name, and omit any namespace prefix.</value>
+    </labels>
+</CustomLabels> 

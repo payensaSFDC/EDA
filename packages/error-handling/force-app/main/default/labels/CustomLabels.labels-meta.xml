@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>exceptionRequiredField</fullName>
+        <categories>Error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error when missing required field value</shortDescription>
+        <value>A blank required field is preventing this record from being saved. The required field could be on this record, or on a record related by a lookup value.</value>
+    </labels>
+    <labels>
+        <fullName>stgOptAllSysAdmins</fullName>
+        <categories>Settings</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for All System Administrators option</shortDescription>
+        <value>All Sys Admins</value>
+    </labels>
+    <labels>
+        <fullName>stgOptUser</fullName>
+        <categories>Settings</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for User option</shortDescription>
+        <value>User</value>
+    </labels>
+    <labels>
+        <fullName>stgOptChatterGroup</fullName>
+        <categories>Settings</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for Chatter Group option</shortDescription>
+        <value>Chatter Group</value>
+    </labels>
+</CustomLabels> 
