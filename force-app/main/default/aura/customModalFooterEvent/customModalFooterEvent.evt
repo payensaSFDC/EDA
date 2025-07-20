@@ -1,3 +1,0 @@
-<aura:event type="Component" description="An event that captures a custom modal button click.">
-    <aura:attribute name="action" type="String" />
-</aura:event>

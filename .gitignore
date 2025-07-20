@@ -1,5 +1,6 @@
 # SFDX
 /.sfdx
+/.sf
 
 # CCI
 .cci
@@ -19,6 +20,7 @@ test_results.xml
 
 # Editors
 **/.vscode/
+**/.cursor/
 
 # Referenced Packages
 .*.swp
@@ -28,7 +30,6 @@ test_results.xml
 .appcloud
 .project
 .settings
-.gitignore
 build.properties
 salesforce.schema
 

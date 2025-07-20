@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Error_Type__c</name>
-    <help>Tipus d&apos;error que s&apos;ha produït.</help>
-    <label>Tipus d&apos;error</label>
-</CustomFieldTranslation>

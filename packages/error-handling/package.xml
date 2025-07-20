@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>ERR_Handler</members>
+        <members>ERR_ExceptionHandler</members>
+        <members>ERR_Notifier</members>
+        <members>ERR_AsyncErrors</members>
+        <members>ERR_AsyncErrors_SCHED</members>
+        <members>ERR_DeleteOutdated_BATCH</members>
+        <members>ERR_DeleteOutdated_SCHED</members>
+        <members>ERR_Handler_TEST</members>
+        <members>ERR_DeleteOutdated_TEST</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Error__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomLabels</name>
+    </types>
+    <version>60.0</version>
+</Package> 

@@ -1,10 +1,46 @@
 {
-    "packageDirectories": [
+  "packageDirectories": [
+    {
+      "path": "packages/utilities",
+      "package": "Utilities",
+      "versionName": "Spring 2024",
+      "versionNumber": "1.0.0.NEXT",
+      "default": false
+    },
+    {
+      "path": "packages/error-handling",
+      "package": "Error Handling",
+      "versionName": "Spring 2024",
+      "versionNumber": "1.0.0.NEXT",
+      "dependencies": [
         {
-            "path": "force-app",
-            "default": true
+          "package": "Utilities",
+          "versionNumber": "1.0.0.LATEST"
         }
-    ],
-    "namespace": "hed",
-    "sourceApiVersion": "52.0"
+      ],
+      "default": false
+    },
+    {
+      "path": "packages/tdtm",
+      "package": "TDTM",
+      "versionName": "Spring 2024", 
+      "versionNumber": "1.0.0.NEXT",
+      "dependencies": [
+        {
+          "package": "Utilities",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "Error Handling",
+          "versionNumber": "1.0.0.LATEST"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "name": "Salesforce Packages",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "60.0",
+  "packageAliases": {}
 }

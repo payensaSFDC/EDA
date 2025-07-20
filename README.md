@@ -1,53 +1,110 @@
-![Salesforce Education Data Architecture](https://github.com/SalesforceFoundation/EDA/blob/main/EDA%20GitHub.png "Salesforce Education Data Architecture")
+# Salesforce Packages: Utilities, Error Handling, and TDTM
 
-Education Data Architecture (EDA) from <a href="http://salesforce.org/" target="_blank">Salesforce.org</a> standardizes the starting point for educational institutions building a CRM. Its core and common data model supports the entire K-20 student journey and its open-source architecture allows anyone to view the source code in GitHub. EDA is developed in close collaboration with our customers, partners, and the K-20 community to foster common acceptance. Solutions built on EDA share an open and flexible, extensible framework that accommodates a range of use cases and end-user customization. With EDA, you get a standardized data model—including preconfigured objects, functionality, logic, and automation—tailored for education right out of the box.
+## Overview
+This repository contains three independent but interconnected Salesforce unlocked packages that provide foundational functionality for enterprise Salesforce applications:
 
-The EDA framework, supported by the Salesforce Platform, can serve as the foundation for managing data and data relationships across your entire institution. We welcome your feedback and contributions to EDA. 
+1. **Utilities Package** - Core utility classes and configuration
+2. **Error Handling Package** - Comprehensive error capture and notification framework
+3. **TDTM Package** - Table-Driven Trigger Management framework
 
-## Get EDA
+## Package Structure
 
-The easiest way to get started with EDA is to sign up for a <a href="https://www.salesforce.org/trial/eda/" target="_blank">trial</a>. If you need to install EDA in an existing Salesforce org, use the <a href="https://install.salesforce.org/products/eda" target="_blank">EDA Installer</a>.
+```
+packages/
+├── utilities/                   # Foundation utilities (no dependencies)
+│   ├── force-app/
+│   │   └── main/default/
+│   │       ├── classes/         # UTIL_* utility classes
+│   │       └── objects/         # Hierarchy_Settings__c
+│   └── README.md
+├── error-handling/              # Error handling framework (depends on utilities)
+│   ├── force-app/
+│   │   └── main/default/
+│   │       ├── classes/         # ERR_* and ErrorSettings* classes
+│   │       ├── objects/         # Error__c object
+│   │       └── labels/          # Error handling labels
+│   └── README.md
+└── tdtm/                        # Table-Driven Trigger Management (depends on utilities + error-handling)
+    ├── force-app/
+    │   └── main/default/
+    │       ├── classes/         # TDTM_* classes
+    │       ├── objects/         # Trigger_Handler__c object
+    │       ├── objectTranslations/
+    │       ├── tabs/
+    │       └── labels/          # TDTM labels
+    └── README.md
+```
 
-## Contribute to EDA
+## Deployment Order
 
-Use a code formatter, like Prettier, to ensure that code you contribute to EDA is formatted consistent with the EDA code base. 
+Due to package dependencies, deploy in this specific order:
 
-### Install a package manager
+1. **Utilities Package** (no dependencies)
+2. **Error Handling Package** (depends on Utilities)
+3. **TDTM Package** (depends on Utilities + Error Handling)
 
-Make sure `yarn` is installed on your local machine. For more information, check <a href="https://classic.yarnpkg.com/en/docs/install/#mac-stableA" target="_blank">yarn installation</a>.
+## Package Creation Commands
 
-### Install dependency packages
+```bash
+# Create the packages
+sfdx force:package:create --name "Utilities" --description "Core utility classes and configuration" --packagetype Unlocked --path packages/utilities --nonamespace --targetdevhubusername [your-dev-hub]
 
- Use a CLI to install dependency packages in your local repo:
+sfdx force:package:create --name "Error Handling" --description "Comprehensive error handling framework" --packagetype Unlocked --path packages/error-handling --nonamespace --targetdevhubusername [your-dev-hub]
 
- ```
- yarn install
- ```
+sfdx force:package:create --name "TDTM" --description "Table-Driven Trigger Management framework" --packagetype Unlocked --path packages/tdtm --nonamespace --targetdevhubusername [your-dev-hub]
+```
 
- If you’re using Prettier, these dependency packages will be installed to your local repo: prettier, prettier-plugin-apex, husky, and lint-staged.
+## Package Version Creation
 
- ### Configure your code formatter
+```bash
+# Create versions (in dependency order)
+sfdx force:package:version:create --package "Utilities" --definitionfile config/project-scratch-def.json --wait 10 --codecoverage --targetdevhubusername [your-dev-hub]
 
- Configure your code formatter, as needed. For example, customize Prettier configurations in `prettierrc.yml` or specify code for Prettier to ignore in `.prettierignore`.
+sfdx force:package:version:create --package "Error Handling" --definitionfile config/project-scratch-def.json --wait 10 --codecoverage --targetdevhubusername [your-dev-hub]
 
- ### Bypass pre-commit hook
+sfdx force:package:version:create --package "TDTM" --definitionfile config/project-scratch-def.json --wait 10 --codecoverage --targetdevhubusername [your-dev-hub]
+```
 
- Pre-commit hooks help ensure the quality of code, but if you need to bypass them, append `--no-verify` to git commit or use a similar commit option for your GUI clients.
+## Installation
 
- ### Troubleshoot errors
+```bash
+# Install in dependency order
+sfdx force:package:install --package [Utilities-Package-Version-ID] --targetusername [target-org]
+sfdx force:package:install --package [Error-Handling-Package-Version-ID] --targetusername [target-org]
+sfdx force:package:install --package [TDTM-Package-Version-ID] --targetusername [target-org]
+```
 
- If you encounter errors, remove the node_modules folder and run `yarn install` again.
+## Key Features
 
-## Learn More
+### Utilities Package
+- Debug logging utilities
+- Namespace detection
+- Custom settings management
+- Object metadata access
+- Shared configuration through Hierarchy_Settings__c
 
-* <a href="https://trailhead.salesforce.com/trailblazer-community/groups/0F94S000000kHi4SAE" target="_blank">Ask questions or get help</a>
-* <a href="https://ideas.salesforce.com/s/search?filter=Education#t=All&sort=relevancy&f:@sfcategoryfull=[Education%7CEducation%20Data%20Architecture]" target="_blank">Feature Request</a>
-* Check out existing <a href="https://github.com/SalesforceFoundation/EDA/labels/bug" target="_blank">bugs</a> and <a href="https://trailblazer.salesforce.com/ideaSearch?filter=Education+%3E+Education+Data+Architecture" target="_blank">feature and enhancement requests</a>
-* <a href="https://github.com/SalesforceFoundation/EDA/releases" target="_blank">Release Notes and Beta Releases</a>
+### Error Handling Package
+- Automatic error capture from DML operations
+- Exception message beautification
+- Email and Chatter notifications
+- Configurable error storage
+- Automated cleanup of old errors
+- Asynchronous error detection
 
-## Meta
+### TDTM Package  
+- Configurable trigger management
+- Multiple trigger handlers per object
+- Execution order control
+- Field-based filtering
+- User exclusions
+- Error handling integration
+- Asynchronous processing support
 
-The Education Data Architecture technology (“EDA”) is an open-source package licensed by Salesforce.org (“SFDO”) under the BSD-3 Clause License, found at https://opensource.org/licenses/BSD-3-Clause. ANY MASTER SUBSCRIPTION AGREEMENT YOU OR YOUR ENTITY MAY HAVE WITH SFDO DOES NOT APPLY TO YOUR USE OF EDA. EDA IS PROVIDED “AS IS” AND AS AVAILABLE, AND SFDO MAKES NO WARRANTY OF ANY KIND REGARDING EDA, WHETHER EXPRESS, IMPLIED, STATUTORY OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, FREEDOM FROM DEFECTS OR NON-INFRINGEMENT, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
-SFDO WILL HAVE NO LIABILITY ARISING OUT OF OR RELATED TO YOUR USE OF EDA FOR ANY DIRECT DAMAGES OR FOR ANY LOST PROFITS, REVENUES, GOODWILL OR INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, COVER, BUSINESS INTERRUPTION OR PUNITIVE DAMAGES, WHETHER AN ACTION IS IN CONTRACT OR TORT AND REGARDLESS OF THE THEORY OF LIABILITY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR IF A REMEDY OTHERWISE FAILS OF ITS ESSENTIAL PURPOSE. THE FOREGOING DISCLAIMER WILL NOT APPLY TO THE EXTENT PROHIBITED BY LAW. SFDO DISCLAIMS ALL LIABILITY AND INDEMNIFICATION OBLIGATIONS FOR ANY HARM OR DAMAGES CAUSED BY ANY THIRD-PARTY HOSTING PROVIDERS.
+## Configuration
 
-(Release 244)
+After installation, configure the packages through the Hierarchy_Settings__c custom settings object:
+
+- **Error Handling**: Enable/disable error storage, notifications, and debug logging
+- **TDTM**: Configure trigger handlers through Trigger_Handler__c records
+
+See individual package README files for detailed configuration instructions.
